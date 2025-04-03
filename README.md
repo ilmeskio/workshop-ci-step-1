@@ -65,7 +65,7 @@ Esegui il seguente comando per inizializzare il file JSON della tabella Todos (s
 
 ```sh
 mkdir data
-cp data.json.example data/data.json
+cp data.empty.json data/data.json
 ```
 
 Ora che hai dei dati disponibili, puoi lanciare il backend tramite json-server:
@@ -84,20 +84,15 @@ L’app sarà disponibile su <http://localhost:3000> 🚀.
 
 ### **4️⃣ Eseguire i test**
 
-Per eseguire i test di integrazione, usa il comando: `npm run test`.
+Prerequisito: per poter lanciare i test devi avere sia frontend che backend che girano (quindi devi avere eseguito i due comandi precedenti prima di lanciare i test).
 
+Per eseguire i test di integrazione, usa il comando: `npm run test`.
 Per eseguire i test e2e, usa il comando: `npm run test-e2e` in modalita headless, oppure `npm run test-e2e-ui` per lanciare la UI.
-NB: per poter lanciare i test e2e devi avere l'applicazione che gira in locale (quindi devi avere eseguito i due comandi precedenti prima di lanciare i test).
 
 In alternativa, puoi sfruttare lo script di pre-commit di husky che viene eseguito in automatico ad ogni commit; invece di eseguire i test tramite npm,
 puoi lanciare lo script bash che si assicura le porte 3000 e 3001 siano libere, lancia l'app, esegue i test e poi libera nuovamente le porte.
 
 Dovresti vedere i test esistenti passare con successo. Man mano che implementerai nuove funzionalità, aggiorna e aggiungi test dove necessario.
-
-
-```sh
-bash .husky/pre-commit
-```
 
 ---
 
