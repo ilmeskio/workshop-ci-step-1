@@ -22,9 +22,7 @@ jobs:
     - name: Create data.json in the data folder
       run: |
         mkdir -p data
-        echo '{"tasks": []}' > data/data.json
-    - name: Run Jest tests
-      run: npm run test
+        cp ./data.empty.json data/data.json
     - name: Avviare json-server
       run: npm run json-server &
     - name: Attendere che json-server sia attivo
@@ -39,8 +37,10 @@ jobs:
         DEV_PID=$!      # Capture the PID of the background process
         echo "App started with PID $DEV_PID"
       continue-on-error: true  # Allow this step to fail if the background process is killed later
+    - name: Run Jest tests
+      run: npm run test
     - name: Run Playwright tests
-      run: npx playwright test
+      run: npm run test-e2e
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:

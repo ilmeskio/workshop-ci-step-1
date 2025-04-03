@@ -7,11 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky install",
     "json-server": "json-server --watch data/data.json --port 3001",
-    "test-e2e": "npx playwright test",
-    "test-e2e-ui": "npx playwright test --ui",
-    "test": "jest"
+    "test-e2e": "cp ./data.test.json data/data.json && npx playwright tes && cp ./data.empty.json data/data.jsont",
+    "test-e2e-ui": "cp ./data.test.json data/data.json && npx playwright test --ui && cp ./data.empty.json data/data.json",
+    "test": "cp ./data.test.json data/data.json && jest && cp ./data.empty.json data/data.json"
   },
   "dependencies": {
     "@types/node": "18.15.11",
@@ -20,7 +19,6 @@
     "daisyui": "^2.51.5",
     "eslint": "8.37.0",
     "eslint-config-next": "13.2.4",
-    "husky": "^9.1.7",
     "next": "13.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
