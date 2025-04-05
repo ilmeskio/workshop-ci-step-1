@@ -1,4 +1,4 @@
-import {addTodo, deleteTodo, editTodo, getAllTodos} from '@/api.v2';
+import {addTodo, deleteTodo, editTodo, getAllTodos, setTodoDone} from '@/api.v2';
 import {expect, test} from '@jest/globals';
 
 test('GET all TODOs', async () => {
@@ -72,6 +72,39 @@ test('edit a TODO', async () => {
             id: "2",
             text: "Test 2 edited",
             done: false
+        },
+        {
+            id: "3",
+            text: "Test 3",
+            done: false
+        },
+        {
+            id: "4",
+            text: "Test 4",
+            done: false
+        }
+    ]);
+});
+
+test('set a TODO done field', async () => {
+    await setTodoDone({
+        id: "2",
+        text: "Test 2 edited",
+        done: false,
+    }, true);
+
+    const actual = await getAllTodos();
+
+    expect(actual).toEqual([
+        {
+            id: "1",
+            text: "Test 1",
+            done: false
+        },
+        {
+            id: "2",
+            text: "Test 2 edited",
+            done: true
         },
         {
             id: "3",

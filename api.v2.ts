@@ -33,6 +33,20 @@ export const editTodo = async (todo: ITaskV2): Promise<ITaskV2> => {
   return updatedTodo;
 }
 
+export const setTodoDone = async (todo: ITaskV2, done: boolean): Promise<ITaskV2> => {
+  const res = await fetch(`${baseUrl}/tasks/${todo.id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      done,
+    })
+  })
+  const updatedTodo = await res.json();
+  return updatedTodo;
+}
+
 export const deleteTodo = async (id: string): Promise<void> => {
   await fetch(`${baseUrl}/tasks/${id}`, {
     method: 'DELETE',
