@@ -2,11 +2,11 @@
 
 import { ITaskV2 } from "@/types/tasks";
 import { FormEventHandler, useState } from "react";
-import { FiEdit, FiTrash2 } from "react-icons/fi";
+import { FiCheck, FiEdit, FiTrash2 } from "react-icons/fi";
 import Modal from "./Modal";
 import { useRouter } from "next/navigation";
-import { deleteTodo, editTodo } from "@/api";
 import UpsertTaskModal from "./UpsertTaskModal";
+import { deleteTodo, editTodo, setTodoDone } from '@/api.v2';
 
 interface TaskProps {
   task: ITaskV2;
@@ -34,10 +34,23 @@ const Task: React.FC<TaskProps> = ({ task }) => {
     router.refresh();
   };
 
+  const handleDoneTask = async (task: ITaskV2) => {
+    await setTodoDone(task, true);
+    setOpenModalDeleted(false);
+    router.refresh();
+  };
+
   return (
     <tr key={task.id}>
       <td className='w-full' data-testid="todo-name-label">{task.text}</td>
       <td className='flex gap-5'>
+        <FiCheck
+          onClick={() => handleDoneTask(task)}
+          cursor='pointer'
+          className='text-blue-500'
+          size={25}
+          data-testid="edit-todo"
+        />
         <FiEdit
           onClick={() => setOpenModalEdit(true)}
           cursor='pointer'
@@ -45,8 +58,8 @@ const Task: React.FC<TaskProps> = ({ task }) => {
           size={25}
           data-testid="edit-todo"
         />
-        <UpsertTaskModal 
-          modalOpen={openModalEdit} 
+        <UpsertTaskModal
+          modalOpen={openModalEdit}
           setModalOpen={setOpenModalEdit}
           handleSubmit={handleSubmitEditTodo}
           value={taskToEdit}

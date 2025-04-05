@@ -7,5 +7,5 @@ export interface ITask {
 export interface ITaskV2 {
   id: string,
   text: string,
-  done: boolean
+  done?: boolean
 }
